@@ -4,6 +4,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.PowerPlatform.Dataverse.Client" Version="1.2.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PowerPlatformGovernance.Application\PowerPlatformGovernance.Application.csproj" />
     <ProjectReference Include="..\PowerPlatformGovernance.Domain\PowerPlatformGovernance.Domain.csproj" />
   </ItemGroup>

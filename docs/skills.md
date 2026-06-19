@@ -125,6 +125,81 @@ All API calls through service layer.
 
 ---
 
+# Frontend Quality Standards
+
+The frontend is a strategic showcase application.
+
+When multiple implementation options exist, prefer:
+
+- Better user experience
+- Better visual design
+- Better component reusability
+- Better perceived quality
+
+Avoid generating generic CRUD interfaces.
+
+The application should feel like a modern SaaS platform rather than a traditional internal business application.
+
+## Component Standards
+
+Create reusable components for:
+
+- MetricCard
+- TrendCard
+- RiskBadge
+- StatusBadge
+- HealthIndicator
+- AssetSummaryCard
+- ActivityTimeline
+- GovernanceScoreCard
+- EmptyState
+- ErrorState
+
+All pages should be assembled from reusable components rather than custom page-specific implementations.
+
+## Dashboard Standards
+
+The dashboard is the primary showcase experience.
+
+The dashboard should communicate:
+
+- Platform Health
+- Platform Scale
+- Governance Coverage
+- Risk Exposure
+- Recent Activity
+
+The dashboard should prioritise visual storytelling over simple metric display.
+
+## Theme Standards
+
+Support:
+
+- Light Theme
+- Dark Theme
+
+All components must support both themes.
+
+Do not hardcode colours.
+
+Use design tokens and theme variables.
+
+## Animation Standards
+
+Use subtle transitions:
+
+- Hover Effects
+- Card Elevation
+- Navigation Transitions
+
+Animation duration:
+
+150ms to 250ms
+
+Avoid excessive motion or decorative animation.
+
+---
+
 # UI Principles
 
 Provide:
@@ -140,6 +215,32 @@ Design for:
 - Technology managers
 
 Not citizen developers.
+
+The application is an enterprise administration platform.
+
+Prioritise:
+
+- Information density
+- Readability
+- Consistency
+- Accessibility
+
+Avoid:
+
+- Marketing layouts
+- Excessive whitespace
+- Large hero sections
+- Complex animations
+
+All pages must follow a common layout.
+
+Use Material UI components where possible.
+
+Tables are the primary information display pattern.
+
+All inventory pages should share a common table component.
+
+All detail pages should share a common detail page layout.
 
 ---
 

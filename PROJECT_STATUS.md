@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Application services scaffolded.
+Dataverse infrastructure integration scaffolded.
 
 ## Completed
 
@@ -44,17 +44,36 @@ Application services scaffolded.
   - `IEnvironmentService`
 - Added `DashboardSummary` application model.
 - Registered Application services in `AddApplication()`.
+- Added Dataverse SDK package reference:
+  - `Microsoft.PowerPlatform.Dataverse.Client` version `1.2.10`.
+- Added service-principal Dataverse client wrapper:
+  - `DataverseClient`
+  - `IDataverseClient`
+- Added configuration model for Dataverse access and CoE table mappings:
+  - `DataverseOptions`
+  - `DataverseTableMappings`
+  - `ApplicationTableMapping`
+  - `FlowTableMapping`
+  - `EnvironmentTableMapping`
+- Added Dataverse entity reader helpers for canonical type conversion.
+- Added Dataverse repository implementations:
+  - `DataverseApplicationRepository`
+  - `DataverseFlowRepository`
+  - `DataverseEnvironmentRepository`
+- Registered Dataverse client and repositories in Infrastructure dependency injection.
+- Added placeholder Dataverse configuration in `appsettings.json`.
 
 ## Not Implemented Yet
 
 - API controllers for dashboard, applications, flows, and environments.
 - Full feature business rules beyond initial dashboard aggregation.
-- Repository implementations.
-- Dataverse integration.
+- `IUserRepository` Dataverse implementation.
+- Governance and risk repository implementations.
 - Authentication and authorisation.
 - Governance application service.
 - Risk application service.
 - Connector entity and `IConnectorRepository`.
+- Production CoE logical table and column names must be validated against the target tenant and adjusted in configuration if needed.
 
 ## Build Status
 
