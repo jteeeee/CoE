@@ -2,6 +2,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.PowerPlatform.Dataverse.Client;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace PowerPlatformGovernance.Infrastructure.Dataverse;
@@ -74,6 +76,26 @@ public sealed class DataverseClient : IDataverseClient, IDisposable
             query.PageInfo.PageNumber = pageNumber;
             query.PageInfo.PagingCookie = pagingCookie;
         }
+    }
+
+    public async Task<EntityMetadata> RetrieveEntityMetadataAsync(
+        string tableName,
+        CancellationToken cancellationToken = default)
+    {
+        var request = new RetrieveEntityRequest
+        {
+            LogicalName = tableName,
+            EntityFilters = EntityFilters.Attributes,
+            RetrieveAsIfPublished = true
+        };
+
+        logger.LogDebug("Retrieving Dataverse metadata for table {TableName}", tableName);
+
+        var response = await Task.Run(
+            () => (RetrieveEntityResponse)serviceClient.Execute(request),
+            cancellationToken);
+
+        return response.EntityMetadata;
     }
 
     public void Dispose()

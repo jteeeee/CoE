@@ -2,7 +2,7 @@
 
 ## Current Phase
 
-Dataverse infrastructure integration scaffolded.
+Phase 1 React frontend scaffold completed with mock governance data.
 
 ## Completed
 
@@ -55,25 +55,108 @@ Dataverse infrastructure integration scaffolded.
   - `ApplicationTableMapping`
   - `FlowTableMapping`
   - `EnvironmentTableMapping`
+  - `UserTableMapping`
 - Added Dataverse entity reader helpers for canonical type conversion.
 - Added Dataverse repository implementations:
   - `DataverseApplicationRepository`
   - `DataverseFlowRepository`
   - `DataverseEnvironmentRepository`
+  - `DataverseUserRepository`
 - Registered Dataverse client and repositories in Infrastructure dependency injection.
 - Added placeholder Dataverse configuration in `appsettings.json`.
+- Resolved `DashboardService` runtime dependency completeness by registering `IUserRepository`.
+- Added API response DTOs:
+  - `ApplicationDto`
+  - `FlowDto`
+  - `EnvironmentDto`
+  - `DashboardDto`
+- Added API DTO mapping helpers.
+- Added thin REST API controllers:
+  - `DashboardController`
+  - `ApplicationsController`
+  - `FlowsController`
+  - `EnvironmentsController`
+- Added documented application search endpoint at `GET /api/applications/search`.
+- Added Application-layer search method so search logic does not live in controllers.
+- Added shared paging contract:
+  - `PagedResult<T>`
+  - `PagedResultDto<T>`
+- Added inventory query contracts for frontend table workflows:
+  - `ApplicationInventoryQuery`
+  - `FlowInventoryQuery`
+  - `EnvironmentInventoryQuery`
+- Added API query request contracts:
+  - `ApplicationInventoryRequest`
+  - `FlowInventoryRequest`
+  - `EnvironmentInventoryRequest`
+- Added export request contracts:
+  - `ApplicationExportRequest`
+  - `FlowExportRequest`
+  - `EnvironmentExportRequest`
+- Added sort and export enums:
+  - `SortDirection`
+  - `ExportFormat`
+- Updated Applications, Flows, and Environments endpoints to support paging, search, filters, and sorting.
+- Added CSV export endpoints:
+  - `GET /api/applications/export`
+  - `GET /api/flows/export`
+  - `GET /api/environments/export`
+- Added API-layer CSV export formatter.
+- Added consistent API error response contract:
+  - `ApiErrorResponse`
+  - `ApiErrorResponses`
+- Added global exception middleware:
+  - `ExceptionHandlingMiddleware`
+- Registered exception middleware in API startup.
+- Configured model validation failures to return the standard API error response shape.
+- Updated controller `NotFound` and `BadRequest` responses to use the standard API error response shape.
+- Created `/frontend` React application using:
+  - React
+  - TypeScript
+  - Material UI
+  - React Query
+  - React Router
+  - Recharts
+- Added Vite build configuration and strict TypeScript configuration.
+- Added MUI theme factory with light and dark mode support.
+- Added application shell with fixed header, collapsible left navigation, current user area, notifications action, and theme toggle.
+- Added Phase 1 pages:
+  - Dashboard
+  - Applications
+  - Flows
+  - Environments
+- Added reusable frontend components:
+  - `PageHeader`
+  - `MetricCard`
+  - `TrendCard`
+  - `RiskBadge`
+  - `StatusBadge`
+  - `HealthIndicator`
+  - `DataTable`
+  - `EmptyState`
+  - `ErrorState`
+- Added mock governance data in a dedicated frontend mock folder.
+- Added frontend service interface and mock service implementation so pages do not import mock data directly.
+- Added React Query hooks for dashboard, applications, flows, environments, governance records, and risk records.
+- Added shared formatting and CSV export utilities.
+- Added `.gitignore` entries for frontend dependencies, build output, and backend build artifacts.
 
 ## Not Implemented Yet
 
-- API controllers for dashboard, applications, flows, and environments.
 - Full feature business rules beyond initial dashboard aggregation.
-- `IUserRepository` Dataverse implementation.
+- Dataverse-side query pushdown for paging, search, filtering, and sorting.
 - Governance and risk repository implementations.
 - Authentication and authorisation.
 - Governance application service.
 - Risk application service.
 - Connector entity and `IConnectorRepository`.
+- Domain-specific exception types and mappings.
 - Production CoE logical table and column names must be validated against the target tenant and adjusted in configuration if needed.
+- Frontend authentication with MSAL.
+- Frontend connection to the .NET API.
+- Real API client implementation behind the `GovernanceApi` interface.
+- Route-based frontend code splitting to reduce the initial bundle size.
+- Governance and Administration frontend pages.
 
 ## Build Status
 
@@ -102,3 +185,22 @@ Result:
 ```text
 dotnet not found
 ```
+
+Frontend build verification succeeded.
+
+Command:
+
+```bash
+cd frontend
+pnpm build
+```
+
+Result:
+
+```text
+tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit && vite build completed successfully.
+```
+
+Note:
+
+Vite reported a chunk-size warning for the initial frontend bundle. This does not block the Phase 1 build, but route-based code splitting should be added before production hardening.

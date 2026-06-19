@@ -20,6 +20,8 @@ public sealed class DataverseTableMappings
     public FlowTableMapping Flows { get; init; } = new();
 
     public EnvironmentTableMapping Environments { get; init; } = new();
+
+    public UserTableMapping Users { get; init; } = new();
 }
 
 public sealed class ApplicationTableMapping
@@ -107,4 +109,21 @@ public sealed class EnvironmentTableMapping
     public string MakerCount { get; init; } = "admin_makercount";
 
     public string DlpPolicyName { get; init; } = "admin_dlppolicyname";
+}
+
+public sealed class UserTableMapping
+{
+    public string TableName { get; init; } = "admin_maker";
+
+    public string UserId { get; init; } = "admin_makerid";
+
+    public string DisplayName { get; init; } = "admin_displayname";
+
+    public string EmailAddress { get; init; } = "admin_email";
+
+    public string Department { get; init; } = "admin_department";
+
+    public string Manager { get; init; } = "admin_manager";
+
+    public string Status { get; init; } = "statecode";
 }

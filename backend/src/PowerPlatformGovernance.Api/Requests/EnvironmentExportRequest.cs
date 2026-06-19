@@ -1,0 +1,35 @@
+using PowerPlatformGovernance.Application.Queries;
+
+namespace PowerPlatformGovernance.Api.Requests;
+
+public sealed class EnvironmentExportRequest
+{
+    public string? Search { get; set; }
+
+    public string? EnvironmentType { get; set; }
+
+    public string? Region { get; set; }
+
+    public string? DlpPolicyName { get; set; }
+
+    public string? SortBy { get; set; }
+
+    public SortDirection SortDirection { get; set; } = SortDirection.Ascending;
+
+    public ExportFormat Format { get; set; } = ExportFormat.Csv;
+
+    public string[] Columns { get; set; } = [];
+
+    public EnvironmentInventoryQuery ToInventoryQuery()
+    {
+        return new EnvironmentInventoryQuery
+        {
+            Search = Search,
+            EnvironmentType = EnvironmentType,
+            Region = Region,
+            DlpPolicyName = DlpPolicyName,
+            SortBy = SortBy,
+            SortDirection = SortDirection
+        };
+    }
+}
