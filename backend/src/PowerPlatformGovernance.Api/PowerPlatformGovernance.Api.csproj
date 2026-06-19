@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.4" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PowerPlatformGovernance.Application\PowerPlatformGovernance.Application.csproj" />
+    <ProjectReference Include="..\PowerPlatformGovernance.Infrastructure\PowerPlatformGovernance.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
