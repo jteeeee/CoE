@@ -2,130 +2,52 @@
 
 ## Current Phase
 
-Phase 1 React frontend scaffold completed with mock governance data.
+Phase 1 foundation is in progress.
+
+The backend foundation, Dataverse integration scaffolding, API readiness work, and mock-data React frontend are in place. The frontend currently runs without a working backend, Dataverse connection, or Entra ID authentication.
 
 ## Completed
 
-- Moved project planning documentation into `/docs`.
-- Created `/backend` solution structure for .NET 8 Clean Architecture.
-- Created Domain, Application, Infrastructure, and API projects.
-- Added project references that preserve layer boundaries:
-  - API references Application and Infrastructure.
-  - Infrastructure references Application and Domain.
-  - Application references Domain.
-  - Domain has no project references.
-- Added dependency injection extension points for Application and Infrastructure.
-- Configured Serilog in API startup.
-- Added controller-based health endpoint at `GET /api/health`.
-- Added ASP.NET Core health check endpoint at `GET /health`.
-- Added Domain entities from `docs/datamodel.md`:
-  - `Application`
-  - `Flow`
-  - `Environment`
-  - `User`
-  - `GovernanceRecord`
-  - `RiskRecord`
-- Added Domain repository interfaces:
-  - `IApplicationRepository`
-  - `IFlowRepository`
-  - `IEnvironmentRepository`
-  - `IUserRepository`
-  - `IGovernanceRepository`
-  - `IRiskRepository`
-- Added Application-layer services that depend on Domain repository interfaces:
-  - `DashboardService`
-  - `ApplicationService`
-  - `FlowService`
-  - `EnvironmentService`
-- Added service interfaces:
-  - `IDashboardService`
-  - `IApplicationService`
-  - `IFlowService`
-  - `IEnvironmentService`
-- Added `DashboardSummary` application model.
-- Registered Application services in `AddApplication()`.
-- Added Dataverse SDK package reference:
-  - `Microsoft.PowerPlatform.Dataverse.Client` version `1.2.10`.
-- Added service-principal Dataverse client wrapper:
-  - `DataverseClient`
-  - `IDataverseClient`
-- Added configuration model for Dataverse access and CoE table mappings:
-  - `DataverseOptions`
-  - `DataverseTableMappings`
-  - `ApplicationTableMapping`
-  - `FlowTableMapping`
-  - `EnvironmentTableMapping`
-  - `UserTableMapping`
-- Added Dataverse entity reader helpers for canonical type conversion.
-- Added Dataverse repository implementations:
-  - `DataverseApplicationRepository`
-  - `DataverseFlowRepository`
-  - `DataverseEnvironmentRepository`
-  - `DataverseUserRepository`
-- Registered Dataverse client and repositories in Infrastructure dependency injection.
-- Added placeholder Dataverse configuration in `appsettings.json`.
-- Resolved `DashboardService` runtime dependency completeness by registering `IUserRepository`.
-- Added API response DTOs:
-  - `ApplicationDto`
-  - `FlowDto`
-  - `EnvironmentDto`
-  - `DashboardDto`
-- Added API DTO mapping helpers.
-- Added thin REST API controllers:
-  - `DashboardController`
-  - `ApplicationsController`
-  - `FlowsController`
-  - `EnvironmentsController`
-- Added documented application search endpoint at `GET /api/applications/search`.
-- Added Application-layer search method so search logic does not live in controllers.
-- Added shared paging contract:
-  - `PagedResult<T>`
-  - `PagedResultDto<T>`
-- Added inventory query contracts for frontend table workflows:
-  - `ApplicationInventoryQuery`
-  - `FlowInventoryQuery`
-  - `EnvironmentInventoryQuery`
-- Added API query request contracts:
-  - `ApplicationInventoryRequest`
-  - `FlowInventoryRequest`
-  - `EnvironmentInventoryRequest`
-- Added export request contracts:
-  - `ApplicationExportRequest`
-  - `FlowExportRequest`
-  - `EnvironmentExportRequest`
-- Added sort and export enums:
-  - `SortDirection`
-  - `ExportFormat`
-- Updated Applications, Flows, and Environments endpoints to support paging, search, filters, and sorting.
-- Added CSV export endpoints:
-  - `GET /api/applications/export`
-  - `GET /api/flows/export`
-  - `GET /api/environments/export`
-- Added API-layer CSV export formatter.
-- Added consistent API error response contract:
-  - `ApiErrorResponse`
-  - `ApiErrorResponses`
-- Added global exception middleware:
-  - `ExceptionHandlingMiddleware`
-- Registered exception middleware in API startup.
-- Configured model validation failures to return the standard API error response shape.
-- Updated controller `NotFound` and `BadRequest` responses to use the standard API error response shape.
-- Created `/frontend` React application using:
-  - React
-  - TypeScript
-  - Material UI
-  - React Query
-  - React Router
-  - Recharts
-- Added Vite build configuration and strict TypeScript configuration.
-- Added MUI theme factory with light and dark mode support.
-- Added application shell with fixed header, collapsible left navigation, current user area, notifications action, and theme toggle.
+### Documentation
+
+- Project documentation is stored in `/docs`.
+- Current documentation covers requirements, architecture, data model, roadmap, engineering standards, AI guidelines, and UI guidelines.
+
+### Backend
+
+- Created .NET 8 Clean Architecture solution under `/backend`.
+- Added Domain, Application, Infrastructure, and API layers.
+- Added dependency injection setup for Application and Infrastructure layers.
+- Added Serilog configuration.
+- Added health endpoints:
+  - `GET /api/health`
+  - `GET /health`
+- Added canonical domain entities from `docs/datamodel.md`.
+- Added repository interfaces for applications, flows, environments, users, governance records, and risk records.
+- Added Application services for dashboard, applications, flows, and environments.
+- Added Dataverse client and repository implementations for:
+  - Applications
+  - Flows
+  - Environments
+  - Users
+- Added Dataverse mapping configuration and mapping validation scaffolding.
+- Added REST API controllers for dashboard, applications, flows, environments, and Dataverse mapping validation.
+- Added DTO mapping so Dataverse entities are not exposed directly to the UI.
+- Added paging, search, filtering, sorting, and CSV export contracts for inventory endpoints.
+- Added global exception middleware and standard API error responses.
+
+### Frontend
+
+- Created React frontend under `/frontend`.
+- Added TypeScript, Material UI, React Query, React Router, and Recharts.
+- Added MUI light/dark theme support.
+- Added application shell with fixed header and collapsible navigation.
 - Added Phase 1 pages:
   - Dashboard
   - Applications
   - Flows
   - Environments
-- Added reusable frontend components:
+- Added reusable components:
   - `PageHeader`
   - `MetricCard`
   - `TrendCard`
@@ -135,60 +57,31 @@ Phase 1 React frontend scaffold completed with mock governance data.
   - `DataTable`
   - `EmptyState`
   - `ErrorState`
-- Added mock governance data in a dedicated frontend mock folder.
-- Added frontend service interface and mock service implementation so pages do not import mock data directly.
-- Added React Query hooks for dashboard, applications, flows, environments, governance records, and risk records.
-- Added shared formatting and CSV export utilities.
-- Added `.gitignore` entries for frontend dependencies, build output, and backend build artifacts.
+- Added realistic mock governance data in `/frontend/src/mock`.
+- Added frontend service interfaces and mock service implementation.
+- Added React Query hooks so pages call services instead of importing mock data directly.
 
 ## Not Implemented Yet
 
-- Full feature business rules beyond initial dashboard aggregation.
-- Dataverse-side query pushdown for paging, search, filtering, and sorting.
-- Governance and risk repository implementations.
-- Authentication and authorisation.
-- Governance application service.
-- Risk application service.
-- Connector entity and `IConnectorRepository`.
-- Domain-specific exception types and mappings.
-- Production CoE logical table and column names must be validated against the target tenant and adjusted in configuration if needed.
-- Frontend authentication with MSAL.
-- Frontend connection to the .NET API.
-- Real API client implementation behind the `GovernanceApi` interface.
-- Route-based frontend code splitting to reduce the initial bundle size.
+- Entra ID authentication and frontend MSAL integration.
+- Role-based authorisation.
+- Real frontend API client connected to the .NET API.
 - Governance and Administration frontend pages.
+- Governance and risk application services.
+- Governance and risk repository implementations.
+- Connector domain entity and connector repository.
+- Dataverse-side query pushdown for paging, search, filtering, and sorting.
+- Production CoE logical table and column validation against the target tenant.
+- Domain-specific exception types and mappings.
+- Route-based frontend code splitting.
 
 ## Build Status
 
-Build verification is blocked in this environment because the .NET SDK is not installed on the current PATH.
+### Frontend
 
-Attempted command:
+Status: Passing.
 
-```bash
-dotnet build backend/PowerPlatformGovernance.sln
-```
-
-Result:
-
-```text
-zsh:1: command not found: dotnet
-```
-
-Additional check:
-
-```bash
-which -a dotnet
-```
-
-Result:
-
-```text
-dotnet not found
-```
-
-Frontend build verification succeeded.
-
-Command:
+Verified command:
 
 ```bash
 cd frontend
@@ -198,9 +91,29 @@ pnpm build
 Result:
 
 ```text
-tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit && vite build completed successfully.
+TypeScript check and Vite production build completed successfully.
 ```
 
 Note:
 
-Vite reported a chunk-size warning for the initial frontend bundle. This does not block the Phase 1 build, but route-based code splitting should be added before production hardening.
+Vite reports a non-blocking initial bundle size warning. Add route-based code splitting before production hardening.
+
+### Backend
+
+Status: Not verified in this Mac workspace.
+
+Reason:
+
+The .NET SDK is not available on the current PATH in this environment.
+
+Expected verification command on a machine with .NET 8 installed:
+
+```bash
+dotnet build backend/PowerPlatformGovernance.sln
+```
+
+## Runtime Notes
+
+- The Phase 1 frontend uses mock data only.
+- The frontend does not require the backend, Dataverse, or Entra ID to run locally.
+- Dataverse configuration values in `appsettings.json` are placeholders until validated against the target tenant.
